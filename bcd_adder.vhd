@@ -5,8 +5,8 @@ use work.mpis.all;
 
 entity bcd_adder is
 	port(	
-		a, b: in bcd_digit; -- 3 digits input
-		s: out bcd_digit; -- 4 digit output
+		a, b: in bcd_digit; -- 1 digit input
+		s: out bcd_digit; -- 1 digit output
 		carry_in: in std_logic; -- carry in
 		carry_out: out std_logic; -- carry out
 		EN: in std_logic); -- enable signal
