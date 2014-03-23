@@ -8,7 +8,7 @@ package mpis is
 
 	function to_bcd_digit( var: unsigned(3 downto 0)) return bcd_digit;
 	function seven_segment_decoder( hex: unsigned(3 downto 0)) return std_logic_vector;
-end mpis
+end mpis;
 
 package body mpis is
 	function to_bcd_digit( var: unsigned(3 downto 0)) return bcd_digit is
@@ -25,11 +25,12 @@ package body mpis is
 			when "0111" => ret := 7;
 			when "1000" => ret := 8;
 			when "1001" => ret := 9;
+			when others => ret := 0;
 		end case;
 		return ret;
 	end to_bcd_digit;
 
-	eunction seven_segment_decoder( hex: unsigned(3 downto 0)) return std_logic_vector is
+	function seven_segment_decoder( hex: unsigned(3 downto 0)) return std_logic_vector is
 		variable leds: std_logic_vector(6 downto 0);
 	begin
 		-- segment encoding

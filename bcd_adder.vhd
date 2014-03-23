@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.mpis.all
+use work.mpis.all;
 
 entity bcd_adder is
 	port(	
@@ -25,7 +25,7 @@ begin
 		else
 			dig1 <= to_unsigned(a,4);
 			dig2 <= to_unsigned(b,4);
-			if (carry_in = '1');
+			if (carry_in = '1') then
 				dig3 <= dig1 + dig2 + 1;
 				if (dig3 > 9) then
 					dig3 <= dig3 + 6;
