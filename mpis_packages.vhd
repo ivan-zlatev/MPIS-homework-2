@@ -6,25 +6,35 @@ package mpis is
 	subtype bcd_digit is natural range 0 to 9;
 	type bcd_number is array( natural range<>) of bcd_digit;
 
-	function to_bcd_digit( var: unsigned(3 downto 0)) return bcd_digit;
+	function to_bcd_digit( var: unsigned(4 downto 0)) return bcd_digit;
 	function seven_segment_decoder( hex: unsigned(3 downto 0)) return std_logic_vector;
 end mpis;
 
 package body mpis is
-	function to_bcd_digit( var: unsigned(3 downto 0)) return bcd_digit is
+	function to_bcd_digit( var: unsigned(4 downto 0)) return bcd_digit is
 		variable ret: bcd_digit;
 	begin
 		case (var) is
-			when "0000" => ret := 0;
-			when "0001" => ret := 1;
-			when "0010" => ret := 2;
-			when "0011" => ret := 3;
-			when "0100" => ret := 4;
-			when "0101" => ret := 5;
-			when "0110" => ret := 6;
-			when "0111" => ret := 7;
-			when "1000" => ret := 8;
-			when "1001" => ret := 9;
+			when "00000" => ret := 0;
+			when "00001" => ret := 1;
+			when "00010" => ret := 2;
+			when "00011" => ret := 3;
+			when "00100" => ret := 4;
+			when "00101" => ret := 5;
+			when "00110" => ret := 6;
+			when "00111" => ret := 7;
+			when "01000" => ret := 8;
+			when "01001" => ret := 9;
+			when "01010" => ret := 0;
+			when "01011" => ret := 1;
+			when "01100" => ret := 2;
+			when "01101" => ret := 3;
+			when "01110" => ret := 4;
+			when "01111" => ret := 5;
+			when "10000" => ret := 6;
+			when "10001" => ret := 7;
+			when "10010" => ret := 8;
+			when "10011" => ret := 9;
 			when others => ret := 0;
 		end case;
 		return ret;
