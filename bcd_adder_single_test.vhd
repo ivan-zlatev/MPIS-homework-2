@@ -13,9 +13,6 @@ ARCHITECTURE behavior OF bcd_adder_single_test IS
    signal b : bcd_digit;
    signal carry_in : std_logic := '0';
    signal EN : std_logic := '0';
-	constant clock_period : time := 1 ns;
-	signal clock : std_logic := '0';
-	signal clock_run : boolean := true;
 
  	--Outputs
    signal s : bcd_digit;
@@ -25,7 +22,6 @@ BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: entity work.bcd_adder PORT MAP (
-			clock => clock,
           a => a,
           b => b,
           s => s,
@@ -33,17 +29,7 @@ BEGIN
           carry_out => carry_out,
           EN => EN
         );
-		clock_process :process
-		begin
-			if clock_run then
-				clock <= '0';
-				wait for clock_period/2;
-				clock <= '1';
-				wait for clock_period/2;
-			else
-				wait;
-			end if;
-		end process;
+		  
    -- Stimulus process
    stim_proc: process
    begin		
@@ -72,9 +58,7 @@ BEGIN
             end loop;        
         end loop;
 		  wait for 20 ns;
-
-      -- insert stimulus here 
-		clock_run <= false;
+		  
       wait;
    end process;
 

@@ -6,7 +6,6 @@ use work.mpis.all;
 entity bcd_adder_top is
 	generic( N: positive := 3);
 	port(	
-		clock: in std_logic;
 		a, b: in bcd_number(N-1 downto 0); -- 3 digits input
 		s: out bcd_number(N downto 0); -- 4 digit output
 		carry_in: in std_logic; -- carry in
@@ -25,7 +24,6 @@ Ix: for i in 1 to N generate
 	-- generate the lowest digit adder if N > 1
 	I0 : if (i = 1 and i < N) generate
 		begin U0: entity work.bcd_adder port map(
-			clock => clock,
 			a => a(i-1),
 			b => b(i-1),
 			s => temp(i-1),
@@ -37,7 +35,6 @@ Ix: for i in 1 to N generate
 	-- generate the highest digit adder if N > 1
 	IL : if (i = N and i > 1) generate
 		begin UL: entity work.bcd_adder port map(
-			clock => clock,
 			a => a(i-1),
 			b => b(i-1),
 			s => temp(i-1),
@@ -49,7 +46,6 @@ Ix: for i in 1 to N generate
 	-- generate the only digit adder if N = 1
 	instance : if ( i = 1 and i = N) generate
 		begin U: entity work.bcd_adder port map(
-			clock => clock,
 			a => a(0),
 			b => b(0),
 			s => temp(i-1),
@@ -64,7 +60,6 @@ Iy: for j in 2 to N generate
 	begin
 	I : if (j > 1 and j < N) generate
 		begin Ux: entity work.bcd_adder port map(
-			clock => clock,
 			a => a(j-1),
 			b => b(j-1),
 			s => temp(j-1),
@@ -75,7 +70,7 @@ Iy: for j in 2 to N generate
 end generate Iy;
 s <= temp;
 carry_out <= carry(N-1);
-	fdch: process(clock)
+	fdch: process(carry(N-1), a, b, carry_in)
 		begin
 			if (carry(N-1) = '1') then
 				temp(N) <= 1;

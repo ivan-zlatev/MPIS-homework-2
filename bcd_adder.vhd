@@ -5,7 +5,6 @@ use work.mpis.all;
 
 entity bcd_adder is
 	port(
-		clock: in std_logic;
 		a, b: in bcd_digit; -- 1 digit input
 		s: out bcd_digit; -- 1 digit output
 		carry_in: in std_logic; -- carry in
@@ -15,16 +14,16 @@ end bcd_adder;
 
 architecture arch1 of bcd_adder is
 	-- signals
-	signal dig1, dig2 : unsigned(4 downto 0);
+	shared variable dig1, dig2 : unsigned(4 downto 0);
 	signal dig3 : bcd_digit;
 begin
-	adding: process(clock)
+	adding: process(a, b, carry_in, EN)
 	begin
 		if( EN = '0' ) then
 			carry_out <= '0';
 		else
-			dig1 <= to_unsigned(a,5);
-			dig2 <= to_unsigned(b,5);
+			dig1 := to_unsigned(a,5);
+			dig2 := to_unsigned(b,5);
 			if (carry_in = '1') then
 				if ((dig1 + dig2 + 1) > 9) then
 					dig3 <= to_bcd_digit(dig1 + dig2 + 1);
